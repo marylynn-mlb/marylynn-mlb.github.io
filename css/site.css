@@ -263,3 +263,11 @@ html.lb-open { overflow: hidden; }
 
 /* Card teaser: first screenshot faded under the word */
 .thumb img.teaser { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; opacity: .3; filter: saturate(.85); }
+
+/* Project page hero screenshot */
+.p-visual .hero-zoom { display: block; position: relative; width: 100%; padding: 0; margin: 0; border: 0; background: none; cursor: zoom-in; }
+.p-visual .hero-zoom::after { content: "Enlarge"; position: absolute; right: 12px; bottom: 12px; padding: 4px 10px; background: var(--teal); color: var(--sand); font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; border-radius: 25px; opacity: 0; transition: opacity .12s ease; }
+.p-visual .hero-zoom:hover::after, .p-visual .hero-zoom:focus-visible::after { opacity: 1; }
+@media (hover: none) { .p-visual .hero-zoom::after { opacity: 1; } }
+.p-visual.has-shot { height: auto; align-self: flex-start; background: var(--card) !important; }
+.p-visual.has-shot img.shot { width: 100%; height: auto; max-height: 560px; object-fit: contain; display: block; background: var(--card); }

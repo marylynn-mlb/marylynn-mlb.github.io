@@ -7,7 +7,7 @@
 title: Project Name
 slug: project-name           # becomes /projects/project-name/
 type: tool                   # tool | writing
-status: in-development       # idea | in-development | live | retired
+status: in-development       # idea | in-development | live | retired | abandoned
 tagline: |-
   One or two short lines, shown large on the project page.
 summary: One sentence for the card on the Projects page and the top of the project page.
@@ -55,3 +55,4 @@ order: 20                    # lower numbers come first on the Projects page
 # teaser: false          # turn it off
 # teaser_position: center # which part of the image shows (CSS object-position)
 # teaser_opacity: 0.3    # lower for dark screenshots
+# Page hero: the first screenshot sits at the top of the project page, enlargeable on click.

@@ -2,7 +2,7 @@
 title: "Atelier"
 slug: atelier
 type: tool
-status: live
+status: in-development
 word: ATELIER
 color: gold
 order: 6

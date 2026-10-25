@@ -2,7 +2,7 @@
 title: Bedtime Gorilla
 slug: bedtime-gorilla
 type: writing
-status: in-development
+status: abandoned
 summary: Image generation experiment to create a children’s picture book.
 started: 2026-05-02
 updated: 2026-10-25

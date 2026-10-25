@@ -18,7 +18,7 @@ const LINKEDIN = 'https://www.linkedin.com/in/marylynn/';
 const EMAIL = 'mlb@getbrightlight.com';
 
 const COLORS = { gold: '#CCA300', red: '#ED4319', grey: '#8B8D92' };
-const STATUS = { idea: 'Idea', 'in-development': 'In development', live: 'Live', retired: 'Retired' };
+const STATUS = { idea: 'Idea', 'in-development': 'In development', live: 'Live', retired: 'Retired', abandoned: 'Abandoned' };
 const TYPE = { tool: 'Tool', writing: 'Writing' };
 
 const esc = (s = '') => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -286,7 +286,8 @@ function indexPage() {
     <span class="label">Status</span>
     <button type="button" class="chip" data-filter="status" data-value="all" aria-pressed="true">Any</button>
     <button type="button" class="chip" data-filter="status" data-value="live" aria-pressed="false">Live</button>
-    <button type="button" class="chip" data-filter="status" data-value="in-development" aria-pressed="false">In development</button>
+    <button type="button" class="chip" data-filter="status" data-value="in-development" aria-pressed="false">In development</button>${list.some((q) => q.status === 'abandoned') ? `
+    <button type="button" class="chip" data-filter="status" data-value="abandoned" aria-pressed="false">Abandoned</button>` : ''}
   </div>
 </section>
 
@@ -373,7 +374,10 @@ function projectPage(p) {
     ? p.links.filter((l) => l && l.url && l.label)
     : [p.demo && { label: 'Try it →', url: p.demo }, p.repo && { label: 'See the code', url: p.repo }].filter(Boolean);
   const tagline = p.tagline ? esc(p.tagline).replace(/\n/g, '<br>') : '';
-  const visual = p.thumbnail
+  const heroShot = p.thumbnail ? null : (p.screenshots || []).find((s) => s && s.file && fs.existsSync(path.join(p.baseDir, s.file)));
+  const visual = heroShot
+    ? `<div class="p-visual has-shot" style="background:${p.color}"><button type="button" class="hero-zoom" aria-label="Enlarge screenshot"><img class="shot" src="/projects/${p.slug}/${esc(heroShot.file)}" alt="${esc(heroShot.alt || heroShot.caption || '')}"></button></div>`
+    : p.thumbnail
     ? `<div class="p-visual" style="background:${p.color}"><img class="shot" src="/projects/${p.slug}/${esc(p.thumbnail)}" alt=""></div>`
     : `<div class="p-visual" aria-hidden="true" style="background:${p.color}"><div class="sheet"><i></i><i></i><i></i><i></i><i></i></div><div class="word" style="font-size:${wordSize(p.word, 108)}px">${esc(p.word)}</div></div>`;
   const body = `<main id="main">

@@ -1,7 +1,7 @@
 // Click a screenshot to see it large. Uses a native <dialog>, so Esc, focus trapping
 // and focus return come from the browser. Left/right arrows move between screenshots.
 (function () {
-  var zooms = Array.prototype.slice.call(document.querySelectorAll('.zoom'));
+  var zooms = Array.prototype.slice.call(document.querySelectorAll('.shot-grid .zoom'));
   if (!zooms.length || typeof HTMLDialogElement === 'undefined') return;
 
   var dlg = document.createElement('dialog');
@@ -38,6 +38,8 @@
     document.documentElement.classList.add('lb-open');
   }
 
+  var hero = document.querySelector('.hero-zoom');
+  if (hero) hero.addEventListener('click', function () { open(0); });
   zooms.forEach(function (z, n) { z.addEventListener('click', function () { open(n); }); });
   dlg.querySelector('.lb-close').addEventListener('click', function () { dlg.close(); });
   prev.addEventListener('click', function () { show(i - 1); });
