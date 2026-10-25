@@ -74,7 +74,9 @@ function addProject({ data, body, baseDir, meta = {} }) {
 
 for (const f of fs.readdirSync(path.join(ROOT, 'content/projects')).filter((f) => f.endsWith('.md'))) {
   const { data, body } = parseFile(read(path.join(ROOT, 'content/projects', f)));
-  addProject({ data, body, baseDir: path.join(ROOT, 'content/projects') });
+  // Images for a local project live in content/projects/<slug>/ next to its .md file.
+  const slugDir = path.join(ROOT, 'content/projects', String(data.slug || f.replace(/\.md$/, '')));
+  addProject({ data, body, baseDir: fs.existsSync(slugDir) ? slugDir : path.join(ROOT, 'content/projects') });
 }
 
 const remoteDir = path.join(ROOT, '.cache/remote');
@@ -351,17 +353,27 @@ function projectPage(p) {
     ['Started', fmtDate(p.started)],
     ['Type', p.format || TYPE[p.type]],
     ['Built with', p.built_with],
-    ['Status', STATUS[p.status] + (p.repo && p.status === 'live' ? ', open source' : '')],
+    ['Status', p.status_note || STATUS[p.status] + (p.repo && p.status === 'live' ? ', open source' : '')],
     ['License', p.license]
   ].filter(([, v]) => v);
-  const shots = (p.screenshots || []).filter((s) => s && s.file);
+  // Only list screenshots whose image file exists, so a page never shows a broken picture.
+  const shots = (p.screenshots || []).filter((s) => {
+    if (!s || !s.file) return false;
+    const ok = fs.existsSync(path.join(p.baseDir, s.file));
+    if (!ok) console.warn(`note: ${p.slug} screenshot ${s.file} not added yet`);
+    return ok;
+  });
   const idx = list.filter((x) => x.hasPage);
   const next = idx[(idx.findIndex((x) => x.slug === p.slug) + 1) % idx.length];
   const showNext = idx.length > 1 && next && next.slug !== p.slug;
+  // Buttons: an explicit `links` list wins; otherwise "Try it" (demo) and "See the code" (repo).
+  const actions = Array.isArray(p.links) && p.links.length
+    ? p.links.filter((l) => l && l.url && l.label)
+    : [p.demo && { label: 'Try it →', url: p.demo }, p.repo && { label: 'See the code', url: p.repo }].filter(Boolean);
   const tagline = p.tagline ? esc(p.tagline).replace(/\n/g, '<br>') : '';
   const visual = p.thumbnail
     ? `<div class="p-visual" style="background:${p.color}"><img class="shot" src="/projects/${p.slug}/${esc(p.thumbnail)}" alt=""></div>`
-    : `<div class="p-visual" aria-hidden="true" style="background:${p.color}"><div class="sheet"><i></i><i></i><i></i><i></i><i></i></div><div class="word" style="font-size:${wordSize(p.word, 136)}px">${esc(p.word)}</div></div>`;
+    : `<div class="p-visual" aria-hidden="true" style="background:${p.color}"><div class="sheet"><i></i><i></i><i></i><i></i><i></i></div><div class="word" style="font-size:${wordSize(p.word, 108)}px">${esc(p.word)}</div></div>`;
   const body = `<main id="main">
 <div class="crumb"><a class="link" href="/projects/">← All projects</a></div>
 <section class="p-hero">
@@ -370,7 +382,7 @@ function projectPage(p) {
     <h1 class="display">${esc(p.title)}</h1>
     ${tagline ? `<p class="tagline">${tagline}</p>` : ''}
     ${p.summary ? `<p class="summary">${esc(p.summary)}</p>` : ''}
-    ${p.demo || p.repo ? `<div class="actions">${p.demo ? `<a class="btn" href="${esc(p.demo)}">Try it →</a>` : ''}${p.repo ? `<a class="btn btn-outline" href="${esc(p.repo)}">See the code</a>` : ''}</div>` : ''}
+    ${actions.length ? `<div class="actions">${actions.map((a, i) => `<a class="btn${i ? ' btn-outline' : ''}" href="${esc(a.url)}">${esc(a.label)}</a>`).join('')}</div>` : ''}
   </div>
   ${visual}
 </section>
@@ -378,7 +390,7 @@ ${facts.length ? `<section class="facts" aria-label="Project facts">${facts.map(
 <article class="story">
 ${rows.join('\n')}
 </article>
-${shots.length ? `<section class="shots" aria-label="Screenshots"><h2 class="display">Screenshots</h2><div class="shot-grid">${shots.map((s) => `<figure><img src="/projects/${p.slug}/${esc(s.file)}" alt="${esc(s.caption || '')}" loading="lazy"><figcaption>${esc(s.caption || '')}</figcaption></figure>`).join('')}</div></section>` : '<div class="spacer"></div>'}
+${shots.length ? `<section class="shots" aria-label="Screenshots"><h2 class="display">Screenshots</h2><div class="shot-grid">${shots.map((s) => `<figure><img src="/projects/${p.slug}/${esc(s.file)}" alt="${esc(s.alt || s.caption || '')}" loading="lazy"><figcaption>${esc(s.caption || '')}</figcaption></figure>`).join('')}</div></section>` : '<div class="spacer"></div>'}
 <nav class="pager" aria-label="Project navigation">
   <a href="/projects/">← All projects</a>
   ${showNext ? `<a href="/projects/${next.slug}/">Next: ${esc(next.title)} →</a>` : ''}
@@ -434,7 +446,6 @@ for (const p of list) {
   for (const rel of refs) {
     const src = path.join(p.baseDir, rel);
     if (fs.existsSync(src)) copy(src, `projects/${p.slug}/${rel}`);
-    else console.warn(`warning: ${p.slug} references missing file ${rel}`);
   }
 }
 // Cards that use a thumbnail but have no page still need the file.

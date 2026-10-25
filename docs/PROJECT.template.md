@@ -2,6 +2,7 @@
 # Copy this file to the root of a project repo as PROJECT.md.
 # Also add the GitHub topic "brightlight-project" to the repo so the site finds it.
 # Only title, slug, type, status and summary are required.
+# If a value contains a colon, wrap it in double quotes (YAML needs this), e.g. caption: "Step 1: upload".
 
 title: Project Name
 slug: project-name           # becomes /projects/project-name/
@@ -16,10 +17,15 @@ updated: 2026-10-25
 
 built_with: Claude Code
 format: Hosted in-browser tool   # optional; shown as "Type" on the project page
+status_note: Working prototype   # optional; replaces the plain status in the facts strip
 license: Free for noncommercial use, as is, no support
 
 repo: https://github.com/marylynn-mlb/project-name
 demo: https://marylynn-mlb.github.io/project-name/
+# Optional. Overrides the default "Try it" and "See the code" buttons.
+# links:
+#   - label: Buy a copy →
+#     url: https://example.com
 
 # Card look (optional). Colors: gold | red | grey. Word: short, up to about 7 letters.
 word: NAME

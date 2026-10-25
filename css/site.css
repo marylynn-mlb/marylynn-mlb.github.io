@@ -232,3 +232,7 @@ a.card:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--tea
   .btn, a.card { transition: none; }
   .btn:hover, a.card:hover { transform: none; }
 }
+
+/* Embeds inside project text (e.g. a playlist) */
+.prose iframe { width: 100%; max-width: 560px; border: 0; border-radius: 12px; }
+.prose img { height: auto; }
