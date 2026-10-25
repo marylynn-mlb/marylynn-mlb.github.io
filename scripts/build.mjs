@@ -244,8 +244,10 @@ const wordSize = (w, base = 76) => (w.length <= 6 ? base : w.length === 7 ? Math
 
 function cardHtml(p) {
   const thumbImg = p.thumbnail ? `<img class="shot" src="/projects/${p.slug}/${p.thumbnail}" alt="">` : '';
+  const teaserShot = p.teaser === false || p.thumbnail ? null : (p.screenshots || []).find((s) => s && s.file && fs.existsSync(path.join(p.baseDir, s.file)));
+  const teaserImg = teaserShot ? `<img class="teaser" src="/projects/${p.slug}/${esc(teaserShot.file)}" alt="" loading="lazy"${p.teaser_position || p.teaser_opacity ? ` style="${p.teaser_position ? `object-position:${esc(p.teaser_position)};` : ''}${p.teaser_opacity ? `opacity:${Number(p.teaser_opacity)}` : ''}"` : ''}>` : '';
   const inner = `<div class="thumb" style="background:${p.color}">
-      ${thumbImg || '<div class="sheet" aria-hidden="true"><i></i><i></i><i></i><i></i></div>'}
+      ${thumbImg || teaserImg || '<div class="sheet" aria-hidden="true"><i></i><i></i><i></i><i></i></div>'}
       ${thumbImg ? '' : `<div class="word" aria-hidden="true" style="font-size:${wordSize(p.word)}px">${esc(p.word)}</div>`}
     </div>
     <div class="card-body">

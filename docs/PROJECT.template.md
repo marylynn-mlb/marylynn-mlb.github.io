@@ -50,3 +50,8 @@ order: 20                    # lower numbers come first on the Projects page
 ### From building it
 
 ## Notes
+
+# Card teaser (optional): the first screenshot is faded under the word on the Projects index.
+# teaser: false          # turn it off
+# teaser_position: center # which part of the image shows (CSS object-position)
+# teaser_opacity: 0.3    # lower for dark screenshots

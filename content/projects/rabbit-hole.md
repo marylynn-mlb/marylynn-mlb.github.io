@@ -21,6 +21,7 @@ links:
     url: https://github.com/marylynn-mlb/rabbit-hole
 word: ALICE
 color: grey
+teaser_opacity: 0.22
 order: 3
 screenshots:
   - file: alice-1.webp

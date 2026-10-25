@@ -14,6 +14,7 @@ links:
     url: mailto:mlb@getbrightlight.com?subject=Bedtime%20Gorilla
 word: GORILLA
 color: gold
+teaser_opacity: 0.18
 order: 9
 screenshots:
   - file: gorilla-1.webp

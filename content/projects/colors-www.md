@@ -19,6 +19,7 @@ links:
     url: https://github.com/marylynn-mlb/colors-www
 word: COLORS
 color: red
+teaser_opacity: 0.24
 order: 2
 screenshots:
   - file: logbook-overview.png
