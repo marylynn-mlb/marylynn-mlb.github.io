@@ -390,7 +390,12 @@ ${facts.length ? `<section class="facts" aria-label="Project facts">${facts.map(
 <article class="story">
 ${rows.join('\n')}
 </article>
-${shots.length ? `<section class="shots" aria-label="Screenshots"><h2 class="display">Screenshots</h2><div class="shot-grid">${shots.map((s) => `<figure><img src="/projects/${p.slug}/${esc(s.file)}" alt="${esc(s.alt || s.caption || '')}" loading="lazy"><figcaption>${esc(s.caption || '')}</figcaption></figure>`).join('')}</div></section>` : '<div class="spacer"></div>'}
+${shots.length ? `<section class="shots" aria-label="Screenshots"><h2 class="display">Screenshots</h2><div class="shot-grid">${shots.map((s) => {
+  const src = `/projects/${p.slug}/${esc(s.file)}`;
+  const alt = esc(s.alt || s.caption || '');
+  const cap = esc(s.caption || '');
+  return `<figure><button type="button" class="zoom" data-src="${src}" data-alt="${alt}" data-caption="${cap}" aria-label="Enlarge screenshot${cap ? ': ' + cap : ''}"><img src="${src}" alt="${alt}" loading="lazy"></button><figcaption>${cap}</figcaption></figure>`;
+}).join('')}</div></section><script src="/js/lightbox.js" defer></script>` : '<div class="spacer"></div>'}
 <nav class="pager" aria-label="Project navigation">
   <a href="/projects/">← All projects</a>
   ${showNext ? `<a href="/projects/${next.slug}/">Next: ${esc(next.title)} →</a>` : ''}

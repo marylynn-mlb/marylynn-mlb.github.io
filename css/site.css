@@ -236,3 +236,27 @@ a.card:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--tea
 /* Embeds inside project text (e.g. a playlist) */
 .prose iframe { width: 100%; max-width: 560px; border: 0; border-radius: 12px; }
 .prose img { height: auto; }
+
+/* ---------- Screenshot viewer ---------- */
+.zoom { display: block; width: 100%; padding: 0; margin: 0; border: 0; background: none; cursor: zoom-in; position: relative; font: inherit; }
+.zoom::after { content: "Enlarge"; position: absolute; right: 10px; bottom: 10px; padding: 4px 10px; background: var(--teal); color: var(--sand); font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; border-radius: 25px; opacity: 0; transition: opacity .12s ease; }
+.zoom:hover::after, .zoom:focus-visible::after { opacity: 1; }
+@media (hover: none) { .zoom::after { opacity: 1; } }
+html.lb-open { overflow: hidden; }
+.lightbox { padding: 0; border: 2px solid var(--teal); background: var(--sand); color: var(--teal); width: min(96vw, 1400px); max-width: none; max-height: 96vh; overflow: hidden; }
+.lightbox::backdrop { background: rgba(6, 42, 48, .88); }
+.lightbox[open] { display: flex; flex-direction: column; }
+.lb-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px 12px 8px 20px; border-bottom: 2px solid var(--teal); font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.lb-close, .lb-nav { cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); background: var(--card); border: 2px solid var(--teal); border-radius: 25px; }
+.lb-close { min-height: 44px; padding: 0 18px; font-size: 13px; }
+.lb-nav { width: 48px; height: 48px; font-size: 20px; flex: 0 0 auto; }
+.lb-nav[hidden] { display: none; }
+.lb-stage { flex: 1 1 auto; min-height: 0; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 16px; background: var(--card); }
+.lb-img { display: block; max-width: 100%; max-height: calc(96vh - 190px); width: auto; height: auto; object-fit: contain; border: 2px solid var(--teal); background: #fff; }
+.lb-cap { margin: 0; padding: 12px 20px 16px; font-size: 16px; line-height: 1.45; color: var(--muted); min-height: 1.45em; }
+@media (max-width: 720px) {
+  .lb-stage { padding: 8px; gap: 10px; flex-wrap: wrap; overflow-y: auto; }
+  .lb-img { order: 0; flex: 0 0 100%; max-height: calc(96vh - 260px); }
+  .lb-prev { order: 1; }
+  .lb-next { order: 2; }
+}
