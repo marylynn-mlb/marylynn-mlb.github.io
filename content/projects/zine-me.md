@@ -19,12 +19,12 @@ word: ZINE
 color: red
 order: 10
 screenshots:
-  - file: editor.png
-    alt: "The zine software, with a cover page and editable fields for the zine's title and content"
-    caption: "The editor, with a cover page and editable text fields."
-  - file: burnout-zine.png
-    alt: "A black and white line-art illustration of a woman with curly hair, beside text about burnout"
-    caption: "One of the zines I made before I had the tool, a short examination of burnout."
+  - file: zineme-1.webp
+    alt: "The zine editor, with a cover page preview and fields for heading, body text, font, size, alignment and images"
+    caption: "The editor, with a cover page and editable fields."
+  - file: zineme-2.webp
+    alt: "A printed zine spread in black and white line art, with text about burnout"
+    caption: "A finished spread, a short zine on burnout."
 ---
 
 ## What it is

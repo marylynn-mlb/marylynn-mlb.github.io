@@ -17,9 +17,15 @@ word: PLACE
 color: red
 order: 8
 screenshots:
-  - file: cover.jpg
-    alt: "The cover of A Better Place, a black and white illustration of a long road leading to a large cloud, with a house and a suitcase"
+  - file: place-cover.webp
+    alt: "The cover of A Better Place, a black and white sketch of a long road leading to a house and a suitcase, with the words Nowhere, Here and There"
     caption: "The cover."
+  - file: place-1.webp
+    alt: "A page of the story Forever Home"
+    caption: "A page from Forever Home."
+  - file: place-2.webp
+    alt: "A page of the story Holy Shitballs, He is Dead"
+    caption: "A page from another story in the collection."
 ---
 
 ## What it is

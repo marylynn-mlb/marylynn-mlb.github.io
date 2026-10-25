@@ -23,9 +23,6 @@ demo: https://marylynn-mlb.github.io/network-atlas/
 
 # ---- Visuals (paths relative to this file; add once the files exist) ----
 # thumbnail: project-assets/thumbnail.png
-# screenshots:
-#   - file: project-assets/upload.png
-#     caption: The upload screen. Everything stays in your browser.
 
 # ---- Display ----
 tags: [linkedin, networking, privacy, data-viz]
@@ -34,6 +31,25 @@ format: Hosted in-browser tool
 word: ATLAS
 color: gold
 order: 1
+screenshots:
+  - file: atlas-4.webp
+    alt: "Four colored tiles of network numbers, then five tiers of connections sorted by how recently you last exchanged a message"
+    caption: "Connections vs. conversations. Everyone in your network, sorted by when you last actually talked."
+  - file: atlas-2.webp
+    alt: "A shareable summary card with six large numbers on colored tiles, such as connections, years of building a network, and messages exchanged"
+    caption: "The summary card. A shareable image of your best numbers that never names other people."
+  - file: atlas-3.webp
+    alt: "A network map grouping connections by industry, with the user at the center"
+    caption: "Your network as a universe, grouped by industry and employer."
+  - file: atlas-5.webp
+    alt: "A score showing how well LinkedIn knows you, with accuracy and coverage bars and chips of matching and missing interests"
+    caption: "How well LinkedIn knows you, with its guesses checked against what you actually do."
+  - file: atlas-6.webp
+    alt: "The Recommendations section, with moves to strengthen your network built around weak ties"
+    caption: "Recommendations. Moves picked from your own numbers."
+  - file: atlas-7.webp
+    alt: "A starter kit download and a list of copyable prompts for going deeper with your own AI assistant"
+    caption: "Go deeper with your own AI. A starter kit and ready-made prompts."
 ---
 
 ## What it is

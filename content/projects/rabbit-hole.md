@@ -23,12 +23,24 @@ word: ALICE
 color: grey
 order: 3
 screenshots:
-  - file: book.png
-    alt: "The book view, a dark purple page with pink accents showing a trail as a map, with Read, Question and Watched buttons and floral decoration"
-    caption: "The book. A trail drawn as a map."
-  - file: report.png
-    alt: "The report page, with counts of trails, stops, searches, pages and sites, and a color-coded legend"
+  - file: alice-1.webp
+    alt: "The Rabbit Hole side panel next to a trail drawn as a map, on a dark purple page with pink accents and floral decoration"
+    caption: "The book. A trail drawn as a map, with the side panel beside it."
+  - file: alice-4.webp
+    alt: "A trail map with a panel for one stop, where you mark what kind of stop it was, how it went, and whether it mattered"
+    caption: "One stop on a trail. You say what kind of stop it was, and how it went."
+  - file: alice-report1.webp
+    alt: "The report page, with counts of trails, stops, searches, time on pages and sites"
     caption: "The report. Counts come from plain code you can check."
+  - file: alice-report2.webp
+    alt: "The shape of a week of browsing, with each trail drawn as a row of beads"
+    caption: "The shape of it. Each bead is a stop, bigger when you stayed longer."
+  - file: alice-report3.webp
+    alt: "Time spent by subject and a thread of related curiosities, with buttons to say whether the reading is right"
+    caption: "Where the time went, and threads Claude noticed. You get to say whether they are right."
+  - file: alice-report4.webp
+    alt: "Clusters of trails grouped by time and a list of loose ends with buttons to mark them still open or done"
+    caption: "Trails grouped in time, and the loose ends you started but did not finish."
 ---
 
 ## What it is

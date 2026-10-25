@@ -21,9 +21,12 @@ word: HIATUS
 color: red
 order: 4
 screenshots:
-  - file: hiatus.png
-    alt: "A screen from Hiatus"
-    caption: "Hiatus, the guided interview."
+  - file: hiatus-1.webp
+    alt: "The Hiatus home page, with the headline Some things you have to decide, the rest you deliberately do not"
+    caption: "The start page."
+  - file: hiatus-2.webp
+    alt: "Questions about what kind of break this is, beside a live preview of a one-page sabbatical brief"
+    caption: "The questions, with your one-page brief taking shape beside them."
 ---
 
 ## What it is

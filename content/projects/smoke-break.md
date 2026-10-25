@@ -13,9 +13,12 @@ word: SMOKE
 color: grey
 order: 7
 screenshots:
-  - file: smoke-break.png
-    alt: "A webpage titled Smoke Break, discussing the social effects of the cigarette break and links to related articles"
-    caption: "The Smoke Break page, from the app attempt."
+  - file: smoke-1.webp
+    alt: "A plain text web page titled Smoke Break, with sections on the problem and the history"
+    caption: "The Smoke Break page from the app attempt."
+  - file: smoke-2.webp
+    alt: "A black and white zine spread titled Smoke Break, about the cigarette break as collaboration technology"
+    caption: "The same idea as a zine spread."
 ---
 
 ## The thesis

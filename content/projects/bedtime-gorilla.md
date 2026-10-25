@@ -16,12 +16,9 @@ word: GORILLA
 color: gold
 order: 9
 screenshots:
-  - file: gorilla-1.png
-    alt: "A night scene in a cluttered bedroom, with a dog jumping and an annoyed cat sitting on the bed"
-    caption: "A dog and a cat, and a bedtime that is not going to plan."
-  - file: gorilla-2.png
-    alt: "A gorilla family in a cozy bedroom at night, the mother tucking in her sleeping children and a cat"
-    caption: "Sleepytime Gorilla, tucking everyone in."
+  - file: gorilla-1.webp
+    alt: "Three illustrated panels: a dog jumping in a dark bedroom, a dog and a cat looking at a lit doorway, and a door opening, with the text The zooming stopped, The sneaking stopped, The door opened"
+    caption: "A page from the book, a bedtime that is not going to plan."
 ---
 
 ## What it is
