@@ -184,7 +184,7 @@ function homePage() {
 <section class="bets">
   <img class="bulb" src="/assets/bulb.webp" alt="" aria-hidden="true" width="541" height="880">
   <div class="inner">
-    <h3 class="display">Every growth plan is a set of bets. The work is answering where to double down.</h3>
+    <h3 class="display">Every growth plan is a set of bets. The trick is in answering where to double down.</h3>
     <div class="cols">
       <p>Most growth plans are written as if the answer is already known, and you’re starting off all-in. In reality each one is a set of bets about customers, markets, and timing, and the market never stops telling you which ones are wrong. You can’t grow what you don’t understand, and you never finish understanding it.</p>
       <p>I’m the person who spots the pattern others haven’t seen, calls the bets, works out what would have to be true for each one to pay off, and designs the cheapest way to find out. Customer insight, market intelligence, and AI-accelerated research feed that loop. Then I own it: judgment to execution.</p>
