@@ -110,7 +110,7 @@ const NAV = [
   ['POV', '/pov-learning-products/']
 ];
 
-function layout({ title, description, body, current = '', logo = true, canonical = '/' }) {
+function layout({ title, description, body, current = '', logo = true, canonical = '/', noindex = false }) {
   const nav = NAV.map(([label, href]) => {
     const on = current === href || (href !== '/' && current.startsWith(href));
     return `<a href="${href}"${on ? ' aria-current="page"' : ''}>${label}</a>`;
@@ -123,7 +123,7 @@ function layout({ title, description, body, current = '', logo = true, canonical
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(fullTitle)}</title>
 <meta name="description" content="${esc(description)}">
-<link rel="canonical" href="${SITE}${canonical}">
+${noindex ? '<meta name="robots" content="noindex, nofollow">\n' : ''}<link rel="canonical" href="${SITE}${canonical}">
 <meta property="og:title" content="${esc(fullTitle)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:type" content="website">
@@ -161,7 +161,7 @@ function homePage() {
   <div class="hero-row">
     <div class="hero-text">
       <h2 class="display">My friends call me</h2>
-      <p>I help ambitious organizations figure out where and how to grow next: new markets, business models, products, channels, or partnerships. Especially when the opportunity is promising but the path forward <span class="nw">isn’t obvious.</span></p>
+      <p>I help ambitious organizations figure out where and how to grow next: new markets, business models, products, channels, or partnerships. Especially when the opportunity is promising but the path forward isn’t obvious. I do this through rapid intelligence gathering, and testing small bets, to create a <span class="nw">strong investment signal.</span></p>
     </div>
     <div class="hero-stage">
       <div class="block" aria-hidden="true"></div>
@@ -174,8 +174,9 @@ function homePage() {
 <section class="band-grey" aria-label="Projects">
   <div class="copy">
     <div class="label">Projects</div>
-    <h3 class="display">Looking for my projects?</h3>
-    <p>In-flight experiments built with AI, shared as they are. Start with Network Atlas, a tool that turns your LinkedIn export into a picture of your network.</p>
+    <h3 class="display">Looking for my AI projects?</h3>
+    <p>My experiments using AI to build tools that bring light and shape to invisible information and weak signals. I’ve been applying the same questions to more personal interests: What information could be useful to capture here, and how do I gather it?</p>
+    <p><a class="link" href="/what-i-learned-building/">What building them taught me →</a></p>
   </div>
   <a class="btn" href="/projects/">See all projects →</a>
 </section>
@@ -186,13 +187,13 @@ function homePage() {
     <h3 class="display">Every growth plan is a set of bets. The work is answering where to double down.</h3>
     <div class="cols">
       <p>Most growth plans are written as if the answer is already known, and you’re starting off all-in. In reality each one is a set of bets about customers, markets, and timing, and the market never stops telling you which ones are wrong. You can’t grow what you don’t understand, and you never finish understanding it.</p>
-      <p>I’m the person who calls the bets, works out what would have to be true for each one to pay off, and designs the cheapest way to find out. Customer insight, market intelligence, and AI-accelerated research feed that loop. Then I own it: judgment to execution.</p>
+      <p>I’m the person who spots the pattern others haven’t seen, calls the bets, works out what would have to be true for each one to pay off, and designs the cheapest way to find out. Customer insight, market intelligence, and AI-accelerated research feed that loop. Then I own it: judgment to execution.</p>
     </div>
   </div>
 </section>
 
 <section class="moves" aria-label="Three moves">
-  <span>See Patterns</span><span class="sep" aria-hidden="true">&gt;&gt;</span><span>Connect Ideas</span><span class="sep" aria-hidden="true">&gt;&gt;</span><span>Clear a Path</span>
+  <span>Spot Patterns</span><span class="sep" aria-hidden="true">&gt;&gt;</span><span>Test Bets</span><span class="sep" aria-hidden="true">&gt;&gt;</span><span>Clear a Path</span>
 </section>
 
 <section class="experience">
@@ -296,6 +297,15 @@ function indexPage() {
   <div class="grid" id="grid">
   ${list.map(cardHtml).join('\n  ')}
   </div>
+</section>
+
+<section class="learned" aria-label="What I learned">
+  <div class="copy">
+    <div class="label">The pattern across them</div>
+    <h3 class="display">Make the invisible visible, then test it.</h3>
+    <p>Most of these started with something nobody records. What I learned building them is its own page.</p>
+  </div>
+  <a class="btn" href="/what-i-learned-building/">What building these taught me →</a>
 </section>
 </main>
 ${footerTeal}
@@ -419,7 +429,7 @@ ${shots.length ? `<section class="shots" aria-label="Screenshots"><h2 class="dis
 
 // ---------- Long-form pages ----------
 function longPage(slug, data, md) {
-  const body = `<main id="main" class="long">
+  const body = `<main id="main" class="long${data.wide ? ' wide' : ''}">
 <div class="wrap">
   <div class="head"><h1 class="display">${esc(data.title)}</h1>${data.when ? `<p class="when">${esc(data.when)}</p>` : ''}</div>
   <article class="article">
@@ -433,7 +443,8 @@ ${footerGrey}`;
     description: data.description || data.title,
     body,
     current: `/${slug}/`,
-    canonical: `/${slug}/`
+    canonical: `/${slug}/`,
+    noindex: Boolean(data.unlisted)
   });
 }
 
@@ -471,7 +482,7 @@ for (const f of fs.readdirSync(pagesDir).filter((f) => f.endsWith('.md'))) {
   const { data, body } = parseFile(read(path.join(pagesDir, f)));
   const slug = data.slug || f.replace(/\.md$/, '');
   write(`${slug}/index.html`, longPage(slug, data, body));
-  urls.push(`/${slug}/`);
+  if (!data.unlisted) urls.push(`/${slug}/`);
 }
 
 write('404.html', layout({
