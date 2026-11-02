@@ -3,9 +3,9 @@
 :root {
   --sand: #E1D9C1;
   --teal: #062A30;
-  --gold: #CCA300;
-  --red: #ED4319;
-  --grey: #8B8D92;
+  --gold: #F2C200;   /* sunlit gold: text only on teal; on light grounds it is a fill or highlighter */
+  --red: #E3263E;    /* crimson: text on teal or sand; never touches gold */
+  --grey: #B3BCBC;   /* mist: teal text only, crimson as fill only */
   --card: #EFE9D6;
   --muted: #3C5A5E;
   --quiet: #55585D;
@@ -24,7 +24,8 @@ body {
 }
 a { color: var(--teal); }
 img { max-width: 100%; }
-:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+.site-header :focus-visible, .bets :focus-visible, .moves :focus-visible, .site-footer--teal :focus-visible { outline-color: var(--gold); }
 .skip { position: absolute; left: -999px; top: 0; background: var(--gold); color: var(--teal); padding: 10px 16px; z-index: 10; }
 .skip:focus { left: 0; }
 
@@ -35,7 +36,7 @@ img { max-width: 100%; }
 /* Header and nav */
 .site-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 18px var(--gutter); background: var(--teal); position: relative; z-index: 3; }
 .logo { display: block; line-height: 0; }
-.logo img { display: block; height: 48px; width: auto; }
+.logo img { display: block; height: 48px; width: auto; transform: rotate(-4deg); }   /* the MLB art is drawn level; the tilt lives here */
 .nav { display: flex; flex-wrap: wrap; gap: 6px 30px; font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 15px; letter-spacing: .08em; text-transform: uppercase; }
 .nav a { color: var(--sand); text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
 .nav a:hover { text-decoration: underline; text-underline-offset: 6px; }
@@ -59,15 +60,22 @@ img { max-width: 100%; }
 .hero h1 .nw { white-space: nowrap; }
 .hero-row { display: flex; flex-wrap: wrap; gap: 32px 48px; align-items: stretch; }
 .hero-text { flex: 1 1 360px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-width: 0; padding-bottom: 24px; }
-.hero-text h2 { font-size: clamp(30px, 5vw, 52px); color: var(--gold); }
+.hero-text h2 { font-size: clamp(30px, 5vw, 52px); color: var(--teal); }
+.hero-text h2 { position: relative; z-index: 4; text-wrap: balance; padding-bottom: .35em; }
+.hero-text h2 .nw { white-space: nowrap; }
+/* The MLB tag finishes the sentence: inline after "me" on desktop, may overlap the gold block. On phones the stage copy is used instead. */
+.mlb-inline { display: inline-block; height: 1.8em; width: auto; vertical-align: -0.42em; margin: -0.8em -3.35em -0.6em 0.12em; transform: rotate(-4deg); }
+.hero-stage .mlb { display: none; }
+.hero-text h2 .hl { background: linear-gradient(transparent 52%, var(--gold) 52%, var(--gold) 94%, transparent 94%); -webkit-box-decoration-break: clone; box-decoration-break: clone; padding: 0 .08em; }
 .hero-text p { margin: 0 0 32px; font-size: 21px; line-height: 1.6; text-wrap: pretty; }
 .hero-stage { flex: 0 0 400px; min-width: 280px; max-width: 100%; position: relative; height: 440px; margin: -56px 0 0 auto; clip-path: inset(-200px -200px 0 -200px); }
 .hero-stage .block { position: absolute; left: 0; right: 0; bottom: 0; top: 70px; background: var(--gold); }
-.hero-stage .mlb { position: absolute; left: -30%; top: 9%; width: 52%; height: auto; transform: rotate(-4deg); z-index: 3; }
+.hero-stage .mlb { position: absolute; left: -30%; top: 9%; width: 52%; height: auto; transform: rotate(-4deg); z-index: 3; }   /* completes "My friends call me"; may overlap the gold block */
 .hero-stage .me { position: absolute; left: 0; top: 0; width: 100%; height: auto; z-index: 2; }
 @media (max-width: 900px) {
   .hero-stage { margin: 0 auto; flex-basis: 100%; max-width: 400px; }
-  .hero-stage .mlb { left: -6%; top: 2%; width: 40%; }
+  .hero-stage .mlb { display: block; left: 0; top: 2%; width: 40%; }
+  .mlb-inline { display: none; }
   .hero-text { padding-bottom: 0; }
   .hero-text p { margin-bottom: 8px; font-size: 19px; }
 }
@@ -90,7 +98,7 @@ img { max-width: 100%; }
   .bets .cols { grid-template-columns: 1fr; }
 }
 
-.moves { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 24px; padding: 40px var(--gutter); border-top: 2px solid var(--teal); border-bottom: 2px solid var(--teal); background: var(--grey); font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: clamp(16px, 2.6vw, 30px); line-height: 1.1; letter-spacing: -0.02em; text-transform: uppercase; }
+.moves { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 24px; padding: 40px var(--gutter); border-top: 2px solid var(--teal); border-bottom: 2px solid var(--teal); background: var(--teal); color: var(--sand); font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: clamp(16px, 2.6vw, 30px); line-height: 1.1; letter-spacing: -0.02em; text-transform: uppercase; }
 .moves .sep { color: var(--red); }
 @media (max-width: 560px) { .moves { flex-direction: column; } .moves .sep { transform: rotate(90deg); } }
 

@@ -138,7 +138,7 @@ ${noindex ? '<meta name="robots" content="noindex, nofollow">\n' : ''}<link rel=
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
-  ${logo ? '<a class="logo" href="/" aria-label="MLB, home"><img src="/assets/mlb.png" alt="MLB" width="70" height="48"></a>' : '<span></span>'}
+  ${logo ? '<a class="logo" href="/" aria-label="MLB, home"><img src="/assets/mlb.png" alt="MLB" width="86" height="48"></a>' : '<span></span>'}
   <nav class="nav" aria-label="Main">
       ${nav}
   </nav>
@@ -160,12 +160,12 @@ function homePage() {
   <h1 class="display">Hi, I’m <span class="nw">Mary-Lynn</span></h1>
   <div class="hero-row">
     <div class="hero-text">
-      <h2 class="display">My friends call me</h2>
+      <h2 class="display"><span class="hl">My friends call </span><span class="nw"><span class="hl">me</span><img class="mlb-inline" src="/assets/mlb.png" alt="MLB" width="354" height="198"></span></h2>
       <p>I help ambitious organizations figure out where and how to grow next: new markets, business models, products, channels, or partnerships. Especially when the opportunity is promising but the path forward isn’t obvious. I do this through rapid intelligence gathering, and testing small bets, to create a <span class="nw">strong investment signal.</span></p>
     </div>
     <div class="hero-stage">
       <div class="block" aria-hidden="true"></div>
-      <img class="mlb" src="/assets/mlb.png" alt="MLB" width="354" height="242">
+      <img class="mlb" src="/assets/mlb.png" alt="MLB" width="354" height="198">
       <img class="me" src="/assets/headshot-web.webp" alt="Mary-Lynn smiling, with silver hair and clear-framed glasses" width="1400" height="1674" fetchpriority="high">
     </div>
   </div>
