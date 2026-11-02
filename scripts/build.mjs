@@ -17,7 +17,8 @@ const SITE = 'https://marylynn-mlb.github.io';
 const LINKEDIN = 'https://www.linkedin.com/in/marylynn/';
 const EMAIL = 'mlb@getbrightlight.com';
 
-const COLORS = { gold: '#CCA300', red: '#ED4319', grey: '#8B8D92' };
+// Project colors point at the palette tokens in css/site.css, so a palette change reaches every card and project page.
+const COLORS = { gold: 'var(--gold)', red: 'var(--red)', grey: 'var(--grey)' };
 const STATUS = { idea: 'Idea', 'in-development': 'In development', live: 'Live', retired: 'Retired', abandoned: 'Abandoned' };
 const TYPE = { tool: 'Tool', writing: 'Writing' };
 

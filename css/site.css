@@ -270,7 +270,7 @@ html.lb-open { overflow: hidden; }
 }
 
 /* Card teaser: first screenshot faded under the word */
-.thumb img.teaser { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; opacity: .3; filter: saturate(.85); }
+.thumb img.teaser { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; opacity: .35; filter: grayscale(1); mix-blend-mode: multiply; }   /* the card keeps its true palette color; the screenshot only adds texture */
 
 /* Project page hero screenshot */
 .p-visual .hero-zoom { display: block; position: relative; width: 100%; padding: 0; margin: 0; border: 0; background: none; cursor: zoom-in; }
