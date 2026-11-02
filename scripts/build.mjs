@@ -430,6 +430,21 @@ ${shots.length ? `<section class="shots" aria-label="Screenshots"><h2 class="dis
 
 // ---------- Long-form pages ----------
 function longPage(slug, data, md) {
+  if (data.landing) {
+    md = md.replace('<!--packages:engine-->', packageCards('engine')).replace('<!--packages:alongside-->', packageCards('alongside')).replace('<!--packages:decide-->', packageCards('decide')).replace(/<!--package:([a-z0-9-]+)-->/g, (_, s) => { const q = packages.find((x) => x.slug === s); return q ? packageCard(q) : ''; }).replaceAll('{{BOOK_URL}}', BOOK_URL);
+    const lbody = `<main id="main" class="landing">
+${marked.parse(md)}
+</main>
+${footerGrey}`;
+    return layout({
+      title: data.title,
+      description: data.description || data.title,
+      body: lbody,
+      current: `/${slug}/`,
+      canonical: `/${slug}/`,
+      noindex: Boolean(data.unlisted)
+    });
+  }
   const body = `<main id="main" class="long${data.wide ? ' wide' : ''}">
 <div class="wrap">
   <div class="head"><h1 class="display">${esc(data.title)}</h1>${data.when ? `<p class="when">${esc(data.when)}</p>` : ''}</div>
@@ -446,6 +461,142 @@ ${footerGrey}`;
     current: `/${slug}/`,
     canonical: `/${slug}/`,
     noindex: Boolean(data.unlisted)
+  });
+}
+
+
+// ---------- Consulting packages ----------
+const BOOK_URL = 'https://calendar.app.google/SUbrKnDaamnn2jht5';
+function loadPackages() {
+  const dir = path.join(ROOT, 'content/packages');
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir).filter((f) => f.endsWith('.md')).map((f) => {
+    const { data, body } = parseFile(read(path.join(dir, f)));
+    data.slug = data.slug || f.replace(/\.md$/, '');
+    data.hasPage = data.page !== false;
+    data.path = data.path || 'build';
+    data.num = String(data.order || 0).padStart(2, '0');
+    data.body = body;
+    return data;
+  }).sort((a, b) => (a.order || 0) - (b.order || 0));
+}
+const packages = loadPackages();
+const pkgUrl = (p) => `/consulting/${p.slug}/`;
+
+function packageCard(p) {
+  const more = p.hasPage ? `<p class="pf-more"><span>What's included &rarr;</span></p>` : '';
+  const open = p.hasPage ? `<a class="card pf-card" href="${pkgUrl(p)}">` : `<section class="card pf-card">`;
+  return `${open}
+<div class="pf-head"><span class="num">${p.num}</span><span class="verb">${esc(p.verb)}</span></div>
+<div class="pf-body">
+<h3>${esc(p.title)}</h3>
+<p class="pitch">${esc(p.pitch)}</p>
+<dl>
+<dt>When you need it</dt>
+<dd>${esc(p.when)}</dd>
+<dt>What you leave with</dt>
+<dd>${esc(p.leave)}</dd>
+</dl>
+${more}</div>
+<p class="pf-meta">${esc(p.card_meta)}</p>
+${p.hasPage ? '</a>' : '</section>'}`;
+}
+const packageCards = (row) => packages.filter((p) => p.row === row).map(packageCard).join('\n');
+
+function packagePage(p) {
+  const list = (a) => (Array.isArray(a) ? a : []);
+  const isDecide = p.path === 'decide';
+  const hubUrl = isDecide ? '/consulting/growth-strategy/#engagements' : '/consulting/partnership-foundations/#engagements';
+  const hubName = isDecide ? 'Growth Strategy' : 'Partnership Foundations';
+  const others = packages.filter((x) => x.slug !== p.slug && (x.path === p.path || (isDecide && x.slug === 'pilot-design-evaluation')));
+  const included = list(p.included).map((it, i) => `<li><span class="n">${i + 1}</span><h3>${esc(it.title)}</h3><p>${esc(it.text)}</p></li>`).join('\n');
+  const how = list(p.how).map((it, i) => `<li><span class="n">${i + 1}</span><h3>${esc(it.title)}</h3><p>${esc(it.text)}</p></li>`).join('\n');
+  const facts = list(p.facts).map((f) => `<div class="pk-fact"><span class="l">${esc(f.label)}</span><span class="v">${esc(f.value)}</span></div>`).join('\n');
+  const working = list(p.working_together).map((t) => `<p>${esc(t)}</p>`).join('\n');
+  const chips = others.map((o) => `<a class="pk-chip" href="${o.hasPage ? pkgUrl(o) : hubUrl}"><span>${esc(o.verb)}</span>${esc(o.title)}</a>`).join('\n');
+  const body = `<main id="main" class="landing">
+<div class="pf-hero pk-hero">
+<div class="pf-in">
+<p class="backlink"><a href="${hubUrl}">&larr; All ${hubName} engagements</a></p>
+<p class="eyebrow">${hubName} &middot; ${esc(p.verb)}</p>
+<h1 class="display">${esc(p.title)}</h1>
+<p class="hero-lede">${esc(p.tagline)}</p>
+<div class="hero-cta"><a class="btn light" href="${BOOK_URL}">Book a 30-minute conversation</a></div>
+</div>
+</div>
+<div class="pk-intro">
+<div class="pf-in">
+<div class="intro-cols">
+<div class="intro-copy pk-copy">
+${marked.parse(p.body || '')}
+</div>
+${p.best_for ? `<aside class="pk-best"><p class="k">Best for</p><p>${esc(p.best_for)}</p></aside>` : ''}
+</div>
+</div>
+</div>
+<div class="pk-included">
+<div class="pf-in">
+<h2 class="display pf-h2">What's included</h2>
+<ol class="pk-list">
+${included}
+</ol>
+</div>
+</div>
+<div class="pf-how pk-how">
+<div class="pf-in">
+<h2 class="display pf-h2">How the engagement works</h2>
+<ol class="pf-steps">
+${how}
+</ol>
+</div>
+</div>
+<div class="pk-terms">
+<div class="pf-in">
+<div class="pk-two">
+<div>
+<h2 class="display pf-h2">${esc(p.terms_title || 'Format & duration')}</h2>
+${p.format_line ? `<p class="pk-line">${esc(p.format_line)}</p>` : `<div class="pk-facts">\n${facts}\n</div>`}
+${p.format_note ? `<p class="pk-fnote">${esc(p.format_note)}</p>` : ''}
+</div>
+<div class="pk-work">
+<h2 class="display pf-h2">Working together</h2>
+${working}
+</div>
+</div>
+${p.examples ? `<div class="pk-ext"><p class="k">${esc(p.examples.title)}</p><ul class="pk-ex">${list(p.examples.items).map((t) => `<li>${esc(t)}</li>`).join('')}</ul></div>` : ''}
+${p.extension ? `<div class="pk-ext"><p class="k">Optional extension</p><h3>${esc(p.extension.title)}</h3><p>${esc(p.extension.text)}</p></div>` : ''}
+</div>
+</div>
+${p.result ? `<div class="pk-result">
+<div class="pf-in">
+<p class="k">The result</p>
+<p class="big">${esc(p.result)}</p>
+</div>
+</div>` : ''}
+<div class="pk-others">
+<div class="pf-in">
+<p class="pf-rowlabel">Other engagements</p>
+<div class="pk-chips">
+${chips}
+</div>
+</div>
+</div>
+<div class="pf-close">
+<div class="pf-in">
+<h2 class="display">Is this the right starting point?</h2>
+<p>Thirty minutes is enough to find out.</p>
+<a class="btn" href="${BOOK_URL}">Book a 30-minute introductory conversation</a>
+</div>
+</div>
+</main>
+${footerGrey}`;
+  return layout({
+    title: p.title,
+    description: p.tagline || p.title,
+    body,
+    current: '/consulting/',
+    canonical: pkgUrl(p),
+    noindex: true
   });
 }
 
@@ -484,6 +635,10 @@ for (const f of fs.readdirSync(pagesDir).filter((f) => f.endsWith('.md'))) {
   const slug = data.slug || f.replace(/\.md$/, '');
   write(`${slug}/index.html`, longPage(slug, data, body));
   if (!data.unlisted) urls.push(`/${slug}/`);
+}
+
+for (const p of packages) {
+  if (p.hasPage) write(`consulting/${p.slug}/index.html`, packagePage(p));
 }
 
 write('404.html', layout({
