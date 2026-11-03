@@ -3,6 +3,7 @@
 //   content/projects/*.md        project files (PROJECT.md schema), used when a project has no repo copy
 //   .cache/remote/<repo>/        PROJECT.md files pulled from project repos by fetch-remote.mjs (these win)
 //   content/pages/*.md           long-form pages (POV, sabbatical, AI Use)
+//   content/projects-page.md     text at the top and bottom of the Projects page
 // Output: plain HTML/CSS/JS ready for GitHub Pages.
 
 import fs from 'node:fs';
@@ -264,16 +265,18 @@ function cardHtml(p) {
 }
 
 function indexPage() {
+  const pg = parseFile(read(path.join(ROOT, 'content/projects-page.md')));
+  const t = pg.data;
   const count = (t) => list.filter((p) => t === 'all' || p.type === t).length;
   const body = `<main id="main">
 <section class="index-hero">
   <div class="title">
     <h1 class="display">Projects</h1>
-    <p class="note">I struggle with perfectionism, and hate sharing things in progress. I need to get over it, so here we are: in-flight projects, shared as they are. Feedback welcome.</p>
+    <p class="note">${esc(t.note)}</p>
   </div>
   <div class="intro">
-    <p class="lead">I’m exploring and experimenting. My attention is drawn to many things, but held by very few.</p>
-    <p>Most of these projects are me testing the capabilities and limits of AI. It has let me take ideas that have lived in my head for years and turn them into something tangible I can test and use.</p>
+    <p class="lead">${esc(t.lead)}</p>
+    ${marked.parse(pg.body)}
   </div>
 </section>
 
@@ -302,11 +305,11 @@ function indexPage() {
 
 <section class="learned" aria-label="What I learned">
   <div class="copy">
-    <div class="label">The pattern across them</div>
-    <h3 class="display">Make the invisible visible, then test it.</h3>
-    <p>Most of these started with something nobody records. What I learned building them is its own page.</p>
+    <div class="label">${esc(t.learned_label)}</div>
+    <h3 class="display">${esc(t.learned_title)}</h3>
+    <p>${esc(t.learned_text)}</p>
   </div>
-  <a class="btn" href="/what-i-learned-building/">What building these taught me →</a>
+  <a class="btn" href="/what-i-learned-building/">${esc(t.learned_button)}</a>
 </section>
 </main>
 ${footerTeal}
