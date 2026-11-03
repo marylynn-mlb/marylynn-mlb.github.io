@@ -87,7 +87,7 @@ img { max-width: 100%; }
 .band-grey .label { color: var(--teal); }
 
 .bets { position: relative; display: flex; align-items: stretch; background: var(--teal); color: var(--sand); overflow: hidden; }
-.bets .bulb { position: absolute; left: 0; top: 0; height: 100%; width: auto; max-width: 24%; object-fit: contain; object-position: left center; -webkit-mask-image: linear-gradient(to right, #000 55%, transparent 100%); mask-image: linear-gradient(to right, #000 55%, transparent 100%); pointer-events: none; z-index: 0; }
+.bets .bulb { position: absolute; left: 0; top: 0; height: 100%; width: auto; max-width: 24%; object-fit: contain; object-position: left center; -webkit-mask-image: linear-gradient(to right, #000 55%, transparent 100%), linear-gradient(to bottom, #000 62%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, #000 55%, transparent 100%), linear-gradient(to bottom, #000 62%, transparent 100%); mask-composite: intersect; pointer-events: none; z-index: 0; }
 .bets .inner { position: relative; z-index: 1; flex: 1 1 auto; display: flex; flex-direction: column; gap: 28px; padding: 64px 56px 64px 20%; justify-content: center; }
 .bets h3 { font-size: clamp(22px, 3vw, 31px); color: var(--gold); max-width: 900px; }
 .bets .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px 56px; }
