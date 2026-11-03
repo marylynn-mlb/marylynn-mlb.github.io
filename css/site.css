@@ -100,7 +100,10 @@ img { max-width: 100%; }
 
 .moves { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 24px; padding: 40px var(--gutter); border-top: 2px solid var(--teal); border-bottom: 2px solid var(--teal); background: var(--teal); color: var(--sand); font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: clamp(16px, 2.6vw, 30px); line-height: 1.1; letter-spacing: -0.02em; text-transform: uppercase; }
 .moves .sep { color: var(--red); }
-@media (max-width: 560px) { .moves { flex-direction: column; } .moves .sep { transform: rotate(90deg); } }
+/* Left-aligned with the paragraph text in the bets band above */
+.moves { justify-content: flex-start; padding-left: 20%; }
+@media (max-width: 800px) { .moves { padding-left: var(--gutter); } }
+@media (max-width: 560px) { .moves { flex-direction: column; align-items: flex-start; } .moves .sep { transform: rotate(90deg); } }
 
 .experience { display: flex; flex-direction: column; gap: 56px; padding: 80px var(--gutter); }
 @media (max-width: 720px) { .experience { padding: 48px var(--gutter); gap: 40px; } }
