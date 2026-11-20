@@ -3,7 +3,7 @@
 //   content/projects/*.md        project files (PROJECT.md schema), used when a project has no repo copy
 //   .cache/remote/<repo>/        PROJECT.md files pulled from project repos by fetch-remote.mjs (these win)
 //   content/pages/*.md           long-form pages (POV, sabbatical, AI Use)
-//   content/projects-page.md     text at the top and bottom of the Projects page
+//   content/projects-page.md     text at the top and bottom of The Lab page
 // Output: plain HTML/CSS/JS ready for GitHub Pages.
 
 import fs from 'node:fs';
@@ -101,14 +101,14 @@ if (fs.existsSync(remoteDir)) {
 const list = [...projects.values()].sort((a, b) => a.order - b.order || String(b.updated || '').localeCompare(String(a.updated || '')));
 for (const p of list) {
   p.hasPage = Boolean(p.body && p.body.trim());
-  p.href = p.hasPage ? `/projects/${p.slug}/` : p.demo || p.repo || '';
+  p.href = p.hasPage ? `/lab/${p.slug}/` : p.demo || p.repo || '';
   p.external = !p.hasPage && Boolean(p.href);
 }
 
 // ---------- Layout ----------
 const NAV = [
   ['Home', '/'],
-  ['Projects', '/projects/'],
+  ['The Lab', '/lab/'],
   ['POV', '/pov-learning-products/']
 ];
 
@@ -173,14 +173,14 @@ function homePage() {
   </div>
 </section>
 
-<section class="band-grey" aria-label="Projects">
+<section class="band-grey" aria-label="The Lab">
   <div class="copy">
-    <div class="label">Projects</div>
+    <div class="label">The Lab</div>
     <h3 class="display">Looking for my AI projects?</h3>
     <p>My experiments using AI to build tools that bring light and shape to invisible information and weak signals. I’ve been applying the same questions to more personal interests: What information could be useful to capture here, and how do I gather it?</p>
     <p><a class="link" href="/what-i-learned-building/">What building them taught me →</a></p>
   </div>
-  <a class="btn" href="/projects/">See all projects →</a>
+  <a class="btn" href="/lab/">Visit The Lab →</a>
 </section>
 
 <section class="bets">
@@ -241,14 +241,14 @@ ${footerGrey}`;
   });
 }
 
-// ---------- Projects index ----------
+// ---------- The Lab index ----------
 // Long words get a smaller marker size so they stay inside the card.
 const wordSize = (w, base = 76) => (w.length <= 6 ? base : w.length === 7 ? Math.round(base * 0.78) : Math.round(base * 0.68));
 
 function cardHtml(p) {
-  const thumbImg = p.thumbnail ? `<img class="shot" src="/projects/${p.slug}/${p.thumbnail}" alt="">` : '';
+  const thumbImg = p.thumbnail ? `<img class="shot" src="/lab/${p.slug}/${p.thumbnail}" alt="">` : '';
   const teaserShot = p.teaser === false || p.thumbnail ? null : (p.screenshots || []).find((s) => s && s.file && fs.existsSync(path.join(p.baseDir, s.file)));
-  const teaserImg = teaserShot ? `<img class="teaser" src="/projects/${p.slug}/${esc(teaserShot.file)}" alt="" loading="lazy"${p.teaser_position || p.teaser_opacity ? ` style="${p.teaser_position ? `object-position:${esc(p.teaser_position)};` : ''}${p.teaser_opacity ? `opacity:${Number(p.teaser_opacity)}` : ''}"` : ''}>` : '';
+  const teaserImg = teaserShot ? `<img class="teaser" src="/lab/${p.slug}/${esc(teaserShot.file)}" alt="" loading="lazy"${p.teaser_position || p.teaser_opacity ? ` style="${p.teaser_position ? `object-position:${esc(p.teaser_position)};` : ''}${p.teaser_opacity ? `opacity:${Number(p.teaser_opacity)}` : ''}"` : ''}>` : '';
   const inner = `<div class="thumb" style="background:${p.color}">
       ${thumbImg || teaserImg || '<div class="sheet" aria-hidden="true"><i></i><i></i><i></i><i></i></div>'}
       ${thumbImg ? '' : `<div class="word" aria-hidden="true" style="font-size:${wordSize(p.word)}px">${esc(p.word)}</div>`}
@@ -271,7 +271,7 @@ function indexPage() {
   const body = `<main id="main">
 <section class="index-hero">
   <div class="title">
-    <h1 class="display">Projects</h1>
+    <h1 class="display">The Lab</h1>
     <p class="note">${esc(t.note)}</p>
   </div>
   <div class="intro">
@@ -296,7 +296,7 @@ function indexPage() {
   </div>
 </section>
 
-<section class="grid-wrap" aria-label="Projects">
+<section class="grid-wrap" aria-label="The Lab">
   <p class="empty" id="empty" hidden>Nothing matches that combination yet.</p>
   <div class="grid" id="grid">
   ${list.map(cardHtml).join('\n  ')}
@@ -315,11 +315,11 @@ function indexPage() {
 ${footerTeal}
 <script src="/js/projects.js" defer></script>`;
   return layout({
-    title: 'Projects',
+    title: 'The Lab',
     description: 'In-flight experiments built with AI: tools, writing, and ideas, shared as they are.',
     body,
-    current: '/projects/',
-    canonical: '/projects/'
+    current: '/lab/',
+    canonical: '/lab/'
   });
 }
 
@@ -390,12 +390,12 @@ function projectPage(p) {
   const tagline = p.tagline ? esc(p.tagline).replace(/\n/g, '<br>') : '';
   const heroShot = p.thumbnail ? null : (p.screenshots || []).find((s) => s && s.file && fs.existsSync(path.join(p.baseDir, s.file)));
   const visual = heroShot
-    ? `<div class="p-visual has-shot" style="background:${p.color}"><button type="button" class="hero-zoom" aria-label="Enlarge screenshot"><img class="shot" src="/projects/${p.slug}/${esc(heroShot.file)}" alt="${esc(heroShot.alt || heroShot.caption || '')}"></button></div>`
+    ? `<div class="p-visual has-shot" style="background:${p.color}"><button type="button" class="hero-zoom" aria-label="Enlarge screenshot"><img class="shot" src="/lab/${p.slug}/${esc(heroShot.file)}" alt="${esc(heroShot.alt || heroShot.caption || '')}"></button></div>`
     : p.thumbnail
-    ? `<div class="p-visual" style="background:${p.color}"><img class="shot" src="/projects/${p.slug}/${esc(p.thumbnail)}" alt=""></div>`
+    ? `<div class="p-visual" style="background:${p.color}"><img class="shot" src="/lab/${p.slug}/${esc(p.thumbnail)}" alt=""></div>`
     : `<div class="p-visual" aria-hidden="true" style="background:${p.color}"><div class="sheet"><i></i><i></i><i></i><i></i><i></i></div><div class="word" style="font-size:${wordSize(p.word, 108)}px">${esc(p.word)}</div></div>`;
   const body = `<main id="main">
-<div class="crumb"><a class="link" href="/projects/">← All projects</a></div>
+<div class="crumb"><a class="link" href="/lab/">← Back to The Lab</a></div>
 <section class="p-hero">
   <div class="info">
     <div class="pills"><span class="pill">${TYPE[p.type]}</span><span class="badge ${p.status === 'live' ? 'live' : p.status === 'in-development' ? 'dev' : p.status}">${STATUS[p.status]}</span></div>
@@ -411,14 +411,14 @@ ${facts.length ? `<section class="facts" aria-label="Project facts">${facts.map(
 ${rows.join('\n')}
 </article>
 ${shots.length ? `<section class="shots" aria-label="Screenshots"><h2 class="display">Screenshots</h2><div class="shot-grid">${shots.map((s) => {
-  const src = `/projects/${p.slug}/${esc(s.file)}`;
+  const src = `/lab/${p.slug}/${esc(s.file)}`;
   const alt = esc(s.alt || s.caption || '');
   const cap = esc(s.caption || '');
   return `<figure><button type="button" class="zoom" data-src="${src}" data-alt="${alt}" data-caption="${cap}" aria-label="Enlarge screenshot${cap ? ': ' + cap : ''}"><img src="${src}" alt="${alt}" loading="lazy"></button><figcaption>${cap}</figcaption></figure>`;
 }).join('')}</div></section><script src="/js/lightbox.js" defer></script>` : '<div class="spacer"></div>'}
 <nav class="pager" aria-label="Project navigation">
-  <a href="/projects/">← All projects</a>
-  ${showNext ? `<a href="/projects/${next.slug}/">Next: ${esc(next.title)} →</a>` : ''}
+  <a href="/lab/">← Back to The Lab</a>
+  ${showNext ? `<a href="/lab/${next.slug}/">Next: ${esc(next.title)} →</a>` : ''}
 </nav>
 </main>
 <footer class="site-footer site-footer--teal"><span>© 2026 by Mary-Lynn Bragg. All rights reserved.</span>${p.updated ? `<span>Last updated ${fmtDate(p.updated)}</span>` : ''}${aiLink}</footer>`;
@@ -426,8 +426,8 @@ ${shots.length ? `<section class="shots" aria-label="Screenshots"><h2 class="dis
     title: p.title,
     description: p.summary || p.tagline || p.title,
     body,
-    current: '/projects/',
-    canonical: `/projects/${p.slug}/`
+    current: '/lab/',
+    canonical: `/lab/${p.slug}/`
   });
 }
 
@@ -603,6 +603,17 @@ ${footerGrey}`;
   });
 }
 
+// Old /projects/ URLs stay alive as redirect stubs (GitHub Pages has no server redirects).
+function redirect(file, to) {
+  write(file, `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Moved to The Lab</title>
+<link rel="canonical" href="${SITE}${to}">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url=${to}">
+</head><body><p>This page has moved to <a href="${to}">The Lab</a>.</p></body></html>
+`);
+}
+
 // ---------- Build ----------
 fs.rmSync(DIST, { recursive: true, force: true });
 fs.mkdirSync(DIST, { recursive: true });
@@ -611,25 +622,27 @@ copy(path.join(ROOT, 'css'), 'css');
 copy(path.join(ROOT, 'js'), 'js');
 
 write('index.html', homePage());
-write('projects/index.html', indexPage());
+write('lab/index.html', indexPage());
+redirect('projects/index.html', '/lab/');
 
-const urls = ['/', '/projects/'];
+const urls = ['/', '/lab/'];
 for (const p of list) {
   if (!p.hasPage) continue;
-  write(`projects/${p.slug}/index.html`, projectPage(p));
-  urls.push(`/projects/${p.slug}/`);
+  write(`lab/${p.slug}/index.html`, projectPage(p));
+  redirect(`projects/${p.slug}/index.html`, `/lab/${p.slug}/`);
+  urls.push(`/lab/${p.slug}/`);
   // Copy files the page references (screenshots, thumbnail) next to it.
   const refs = [p.thumbnail, ...(p.screenshots || []).map((s) => s?.file)].filter(Boolean);
   for (const rel of refs) {
     const src = path.join(p.baseDir, rel);
-    if (fs.existsSync(src)) copy(src, `projects/${p.slug}/${rel}`);
+    if (fs.existsSync(src)) copy(src, `lab/${p.slug}/${rel}`);
   }
 }
 // Cards that use a thumbnail but have no page still need the file.
 for (const p of list) {
   if (p.hasPage || !p.thumbnail) continue;
   const src = path.join(p.baseDir, p.thumbnail);
-  if (fs.existsSync(src)) copy(src, `projects/${p.slug}/${p.thumbnail}`);
+  if (fs.existsSync(src)) copy(src, `lab/${p.slug}/${p.thumbnail}`);
 }
 
 const pagesDir = path.join(ROOT, 'content/pages');
@@ -649,7 +662,7 @@ write('404.html', layout({
   description: 'Page not found.',
   current: '',
   canonical: '/404.html',
-  body: `<main id="main" class="long"><div class="wrap"><div class="head"><h1 class="display">Not found</h1></div><article class="article"><p>That page isn’t here. Try the <a href="/">home page</a> or the <a href="/projects/">projects</a>.</p></article></div></main>${footerGrey}`
+  body: `<main id="main" class="long"><div class="wrap"><div class="head"><h1 class="display">Not found</h1></div><article class="article"><p>That page isn’t here. Try the <a href="/">home page</a> or <a href="/lab/">The Lab</a>.</p></article></div></main>${footerGrey}`
 }));
 write('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\n`);
 write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${SITE}${u}</loc></url>`).join('\n')}\n</urlset>\n`);

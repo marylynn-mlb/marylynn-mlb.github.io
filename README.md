@@ -1,6 +1,6 @@
 # marylynn-mlb.github.io
 
-Personal site: Home, Projects, POV, and long-form pages. Plain HTML and CSS, built by a small Node script and deployed by GitHub Actions.
+Personal site: Home, The Lab, POV, and long-form pages. Plain HTML and CSS, built by a small Node script and deployed by GitHub Actions.
 
 ## How it works
 

@@ -5,12 +5,12 @@
 # If a value contains a colon, wrap it in double quotes (YAML needs this), e.g. caption: "Step 1: upload".
 
 title: Project Name
-slug: project-name           # becomes /projects/project-name/
+slug: project-name           # becomes /lab/project-name/
 type: tool                   # tool | writing
 status: in-development       # idea | in-development | live | retired | abandoned
 tagline: |-
   One or two short lines, shown large on the project page.
-summary: One sentence for the card on the Projects page and the top of the project page.
+summary: One sentence for the card on The Lab page and the top of the project page.
 
 started: 2026-10-01
 updated: 2026-10-25
@@ -30,7 +30,7 @@ demo: https://marylynn-mlb.github.io/project-name/
 # Card look (optional). Colors: gold | red | grey. Word: short, up to about 7 letters.
 word: NAME
 color: gold
-order: 20                    # lower numbers come first on the Projects page
+order: 20                    # lower numbers come first on The Lab page
 
 # Images are paths relative to this file. Leave out if you have none yet.
 # thumbnail: project-assets/thumbnail.png
@@ -51,7 +51,7 @@ order: 20                    # lower numbers come first on the Projects page
 
 ## Notes
 
-# Card teaser (optional): the first screenshot is faded under the word on the Projects index.
+# Card teaser (optional): the first screenshot is faded under the word on The Lab index.
 # teaser: false          # turn it off
 # teaser_position: center # which part of the image shows (CSS object-position)
 # teaser_opacity: 0.3    # lower for dark screenshots
