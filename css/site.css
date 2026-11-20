@@ -124,7 +124,7 @@ img { max-width: 100%; }
 .cta h3 { font-size: clamp(22px, 3vw, 31px); max-width: 640px; }
 .cta .btn { min-height: 56px; padding: 0 32px; font-size: 17px; letter-spacing: .06em; text-transform: none; }
 
-/* ---------- Projects index ---------- */
+/* ---------- The Lab index ---------- */
 .index-hero { display: flex; flex-wrap: wrap; gap: 40px 72px; align-items: flex-end; padding: 72px var(--gutter) 56px; }
 .index-hero .title { display: flex; flex-direction: column; gap: 14px; flex: 0 1 auto; max-width: 100%; }
 .index-hero h1 { font-size: clamp(44px, 12vw, 104px); line-height: .95; letter-spacing: -0.03em; color: var(--red); overflow-wrap: anywhere; }
@@ -303,7 +303,7 @@ html.lb-open { overflow: hidden; }
 .phases li { margin-bottom: 12px; }
 .phases li span { color: var(--muted); font-weight: 600; }
 
-/* Projects index: learned band */
+/* The Lab index: learned band */
 .learned { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 40px; max-width: 1344px; margin: 0 auto 72px; padding: 36px var(--gutter); border-top: 2px solid var(--teal); }
 .learned .copy { flex: 1 1 420px; min-width: 0; }
 .learned .label { margin-bottom: 10px; font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }

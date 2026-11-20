@@ -11,7 +11,7 @@ Of course, knowing for months when my last day would be, and being the person wh
 
 I guess some of it worked out and some of it didn’t. I’m now about 3.5 months in, and I have learned so much about myself and my ideas. I’ve also learned and reflected a lot about how I thought about and planned this time.
 
-One thing I knew I’d spend time on was forming my own opinions about AI. I expected this would be more of a philosophical undertaking, reading, watching, and talking to other people. And I’ve done that. But I’ve also done a lot of playing around. So much more than I expected. I’ve made random apps on the fly for nearly every stray thought that went through my head. It’s been fun, and you can see more about those on the [Projects](/projects/) page.
+One thing I knew I’d spend time on was forming my own opinions about AI. I expected this would be more of a philosophical undertaking, reading, watching, and talking to other people. And I’ve done that. But I’ve also done a lot of playing around. So much more than I expected. I’ve made random apps on the fly for nearly every stray thought that went through my head. It’s been fun, and you can see more about those in [The Lab](/lab/).
 
 And I built one for sabbatical planning. Well, maybe not plaaannning so much as pre-reflecting? Putting it on paper. As I’ve come back from being really disconnected and talked to people I worked with or alongside, I caught up with them and told them about my experience these past few months, and I heard it over and over: *I wish I could do what you’ve done. I daydream about that much time off.*
 

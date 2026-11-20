@@ -1,4 +1,4 @@
-// Filter chips on the Projects index. Cards render fully without this script.
+// Filter chips on The Lab index. Cards render fully without this script.
 (function () {
   var state = { type: 'all', status: 'all' };
   var cards = Array.prototype.slice.call(document.querySelectorAll('#grid .card'));

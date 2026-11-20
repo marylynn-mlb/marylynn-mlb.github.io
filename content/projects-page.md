@@ -1,5 +1,5 @@
 ---
-# Text on the Projects page (marylynn-mlb.github.io/projects/). Edit the quoted text, save, and push.
+# Text on The Lab page (marylynn-mlb.github.io/lab/). Edit the quoted text, save, and push.
 # The project cards themselves come from content/projects/ and the project repos.
 note: "I struggle with perfectionism, and hate sharing things in progress. I need to get over it, so here we are: in-flight projects, shared as-is. Feedback welcome."
 lead: "I’m exploring and experimenting. My attention is drawn to many things, but held by very few."
