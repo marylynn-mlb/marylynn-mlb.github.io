@@ -109,7 +109,8 @@ for (const p of list) {
 const NAV = [
   ['Home', '/'],
   ['The Lab', '/lab/'],
-  ['POV', '/pov-learning-products/']
+  ['POV', '/pov-learning-products/'],
+  ['About', '/about/']
 ];
 
 function layout({ title, description, body, current = '', logo = true, canonical = '/', noindex = false }) {

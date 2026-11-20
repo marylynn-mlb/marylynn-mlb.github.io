@@ -297,6 +297,8 @@ html.lb-open { overflow: hidden; }
 .package .meta { margin: auto 0 0; padding-top: 16px; border-top: 2px solid var(--teal); font-weight: 600; }
 .article .cta-row { margin: 28px 0 0; }
 .article a.btn { color: var(--sand); text-decoration: none; }
+.article a.btn-outline { color: var(--teal); }
+.article .cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
 .article .bio { padding: 24px 28px; background: var(--card); border: 2px solid var(--teal); }
 
 .phases { margin: 0 0 24px; padding-left: 24px; max-width: 720px; }
